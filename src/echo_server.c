@@ -13,7 +13,7 @@ int main(void)
 {
     // AF_INET:ipv4网络协议  SOCK_STREAM:TCP套接字，一个面向连接的套接字  0:默认协议(TCP) 
     // 返回一个文件描述符(int)
-    // int i;
+    int i;
     int sock;
     sock = socket(AF_INET, SOCK_STREAM, 0);
 
