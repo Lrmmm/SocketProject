@@ -7,6 +7,7 @@
 #include <string.h>
 
 #define SERVER_PORT 8765
+#define BUF_SIZE 256
 
 int main(void)
 {
@@ -35,11 +36,22 @@ int main(void)
         struct sockaddr_in client_addr;     // 用于描述客户端的 IPv4 地址和端口号的数据结构
         int client_sock;    // 定义客户端的Socket(信箱)
         char client_ip[64];  // 用于存储客户端的ip地址
+        int buf_len;
+        char buf[BUF_SIZE];
 
         socklen_t client_addr_len = sizeof(client_addr);
         client_sock = accept(sock, (struct sockaddr *)&client_addr, &client_addr_len); // 等待客户端的连接请求，如果有新的客户端连接请求，将创建一个新的套接字来处理该连接，并返回该套接字的文件描述符
         printf("client ip : %s\t port : %d\n", inet_ntop(AF_INET, &client_addr.sin_addr.s_addr, client_ip ,sizeof(client_ip))
                 , ntohs(client_addr.sin_port));
+
+
+        buf_len = read(client_sock, buf, sizeof(buf) - 1);
+        buf[buf_len] = '\0';
+
+        printf("len: %d ,recive: %s\n", buf_len, buf);
+        buf_len = write(client_sock, buf, buf_len);
+        close(client_sock);
+        printf("write finished!\n");
     }
 
     return 0;
