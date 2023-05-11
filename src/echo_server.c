@@ -57,7 +57,7 @@ int main(void)
         }
         
 
-        buf_len = write(client_sock, buf, buf_len);
+        buf_len = write(client_sock, buf, buf_len); // 此时服务器通过TCP向客户端发送消息时，就不需要指定IP地址和端口号了，因为TCP是面向连接的，此时连接已经建立
         close(client_sock);
         printf("write finished!\n");
     }
