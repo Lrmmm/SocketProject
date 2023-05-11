@@ -50,6 +50,13 @@ int main(void)
         buf[buf_len] = '\0';
 
         printf("len: %d ,recive: %s\n", buf_len, buf);
+        // 将buf转为大写
+        for (int i = 0; i < buf_len; i++)
+        {
+            buf[i] = toupper(buf[i]);
+        }
+        
+
         buf_len = write(client_sock, buf, buf_len);
         close(client_sock);
         printf("write finished!\n");
